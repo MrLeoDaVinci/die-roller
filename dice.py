@@ -1,32 +1,37 @@
 import random
 
-print('Hello and welcome to Leo\'s die roller. Please say \n\nd2 roll \nd6 roll \nd10 roll \nd12 roll \nd20 roll \n\nto roll a die \n')
+print('Hello and welcome to Leo\'s die roller.')
 
 while True:
-    die_input = input()
+    number_input = int(input('How many dice are you using? \n'))
+    die_input = input('What type of dice are you using? (example, d6, d10, d20) \n')
 
-    if die_input == 'd2 roll':
-        d2 = random.randint(1, 2)
-        print(d2)
-	
-    elif die_input == 'd6 roll':
-        d6 = random.randint(1, 6)
-        print(d6)
 
-    elif die_input == 'd10 roll':
-        d10 = random.randint(1, 10)
-        print(d10)
+    if die_input.startswith('d') and die_input[1:].isdigit():
+        sides = int(die_input[1:])
+    else:
+        print('Invalid input for the type of dice. Please use the correct format (example, d6, d10, d20).\n')
+        continue
 
-    elif die_input == 'd12 roll':
-        d12 = random.randint(1, 12)
-        print(d12)
+    print('Type roll to roll the dice. or exit to exit the program\n')
+    inpt = input()
 
-    elif die_input == 'd20 roll':
-        d20 = random.randint(1, 20)
-        print(d20)
-
-    elif die_input == 'exit':
+    if inpt == 'exit':
         print('Exiting the program.')
         break
+    elif inpt == 'roll':
+
+        while True:
+            results = [random.randint(1, sides) for _ in range(number_input)]
+            print(' '.join([str(result) for result in results]))
+            print('Type roll to roll another set of dice or new dice. or exit to exit the program\n')
+            inpt = input()
+
+            if inpt == 'new dice':
+                break
+            elif inpt != 'roll':
+                print('Invalid input. Please type roll or new dice. or exit to exit the program\n')
+                break
     else:
-        print('Not a valid input. Please type a roll, or exit')
+        print('Invalid input. Please type roll or new dice\n')
+		
